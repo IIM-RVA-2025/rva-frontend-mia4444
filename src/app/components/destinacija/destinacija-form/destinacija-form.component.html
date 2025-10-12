@@ -1,0 +1,43 @@
+<form (ngSubmit)="onSubmit()" class="destinacija-form">
+  <div class="form-group">
+    <label for="mesto">Mesto:</label>
+    <input 
+      type="text" 
+      id="mesto" 
+      [(ngModel)]="formData.mesto" 
+      name="mesto"
+      required
+      class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="drzava">Država:</label>
+    <input 
+      type="text" 
+      id="drzava" 
+      [(ngModel)]="formData.drzava" 
+      name="drzava"
+      required
+      class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="opis">Opis:</label>
+    <textarea 
+      id="opis" 
+      [(ngModel)]="formData.opis" 
+      name="opis"
+      rows="3"
+      class="form-control">
+    </textarea>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn btn-secondary" (click)="onCancel()">
+      Otkaži
+    </button>
+    <button type="submit" class="btn btn-primary" [disabled]="!isFormValid()">
+      {{ destinacija ? 'Sačuvaj izmene' : 'Dodaj destinaciju' }}
+    </button>
+  </div>
+</form>

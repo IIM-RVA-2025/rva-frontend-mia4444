@@ -1,0 +1,56 @@
+<!-- Urađeno je...: Dodata kratka oznaka u fajl -->
+<div *ngIf="selectedAgencija" class="aranzman-section">
+  <div class="section-header">
+    <h3>Aranzmani za {{ selectedAgencija.naziv }}</h3>
+    <div class="actions">
+      <button class="add-button" (click)="openAddModal()">+</button>
+    </div>
+  </div>
+  
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Ukupna cena</th>
+          <th>Plaćeno</th>
+          <th>Datum realizacije</th>
+          <th>Hotel</th>
+          <th>Akcije</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let aranzman of aranzmani">
+          <td>{{ aranzman.id }}</td>
+          <td>{{ aranzman.ukupnaCena }}</td>
+          <td>{{ aranzman.placeno ? 'Da' : 'Ne' }}</td>
+          <td>{{ aranzman.datumRealizacije | date:'dd.MM.yyyy' }}</td>
+          <td>{{ aranzman.hotel?.naziv }}</td>
+          <td class="actions">
+            <button class="edit-btn" (click)="openEditModal(aranzman)">✏️</button>
+            <button class="delete-btn" (click)="deleteAranzman(aranzman.id)">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Aranzman Modal -->
+<div *ngIf="showModal" class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>{{ editingAranzman ? 'Izmeni Aranžman' : 'Dodaj Aranžman' }}</h3>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+    
+    <div class="modal-body">
+      <app-aranzman-form 
+        [aranzman]="editingAranzman"
+        [hoteli]="hoteli"
+        (save)="saveAranzman($event)"
+        (cancel)="closeModal()">
+      </app-aranzman-form>
+    </div>
+  </div>
+</div>

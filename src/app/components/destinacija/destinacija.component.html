@@ -1,0 +1,59 @@
+<!-- Urađeno je...: Dodata kratka oznaka u fajl -->
+<div class="content-section">
+  <div class="section-header">
+    <h2>Destinacija</h2>
+    <div class="actions">
+      <input 
+        type="text" 
+        placeholder="Pretraži..." 
+        class="search-input"
+        [(ngModel)]="searchTerm"
+        (input)="searchDestinacije()">
+      <button class="add-button" (click)="openAddModal()">+</button>
+    </div>
+  </div>
+  
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Mesto</th>
+          <th>Država</th>
+          <th>Opis</th>
+          <th>Akcije</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let destinacija of destinacije">
+          <td>{{ destinacija.id }}</td>
+          <td>{{ destinacija.mesto }}</td>
+          <td>{{ destinacija.drzava }}</td>
+          <td>{{ destinacija.opis }}</td>
+          <td class="actions">
+            <button class="edit-btn" (click)="openEditModal(destinacija)">✏️</button>
+            <button class="delete-btn" (click)="deleteDestinacija(destinacija.id)">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Destinacija Modal -->
+<div *ngIf="showModal" class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>{{ editingDestinacija ? 'Izmeni Destinaciju' : 'Dodaj Destinaciju' }}</h3>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+    
+    <div class="modal-body">
+      <app-destinacija-form 
+        [destinacija]="editingDestinacija"
+        (save)="saveDestinacija($event)"
+        (cancel)="closeModal()">
+      </app-destinacija-form>
+    </div>
+  </div>
+</div>

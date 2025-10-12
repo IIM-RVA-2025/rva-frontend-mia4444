@@ -1,28 +1,94 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/rP8j5b9t)
-# RvaFrontend
+# Travel Agency Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.8.
+Angular frontend porcija aplikacije koja je namenjena podržavanju funkcionisanja poslovanju turističkih agencija
+i omogućavanja CRUD operacija nad podacima o glavnim entitetima.
 
-## Development server
+## Karakteristike
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Hotel**: Create, read, update, and delete (CRUD) hotele
+- **Destinacija**: Raspoložive destinacije
+- **Turisticka agencija**: Upravljanje turističkim agencijama. Ovde su smešteni i podaci o aranžmanima.
+- **Aranžman**: Upravljanje aranžmanima jedne agencije (koji hotel je uplaćen?)
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Navigacija
 
-## Build
+Aplikacija ima tri glavne sekcije dostupne iz leve bočne trake:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. **Hotel** — upravljanje hotelima sa brojem zvezdica i opisima
+2. **Destinacija** — upravljanje mestima i državama
+3. **Turistička agencija** — upravljanje agencijama
+   - Klikom na agenciju prikazuju se svi aranžmani za tu agenciju
+   - Moguće je dodavati nove aranžmane za izabranu agenciju
 
-## Running unit tests
+## Master-Detail odnos
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Klikom na "Turistička agencija" aplikacija prikazuje sve "Aranžmane" za tu agenciju
+- Implementiran je master-detail obrazac gde je agencija master a aranžmani detalji
 
-## Running end-to-end tests
+## Integracija sa backend-om
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Frontend se povezuje na Spring Boot backend koji radi na `http://localhost:8082` i koristi sledeće endpoint-e:
 
-## Further help
+- `/hoteli` — operacije nad hotelima
+- `/destinacije` — operacije nad destinacijama
+- `/agencije` — operacije nad turističkim agencijama
+- `/aranzmani` — operacije nad aranžmanima
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Development
+
+### Zahtevi/preduslovi za pokretanje aplikacije
+
+- Node.js (verzija 14 ili novija)
+- Angular CLI (može se koristiti preko `npx` ako nije instaliran globalno)
+- Pokrenut backend na `localhost:8082`
+
+### Pokretanje aplikacije
+
+1. Instalirajte zavisnosti:
+
+```powershell
+npm install
+```
+
+2. Pokrenite razvojni server:
+
+```powershell
+npx ng serve --open
+# ili
+npm start
+```
+
+3. Otvorite pregledač na `http://localhost:4201` (ili port koji CLI izabere)
+
+### Build za produkciju
+
+```powershell
+npx ng build --configuration production
+```
+
+## Struktura projekta
+
+```
+src/app/
+├── models/           # TypeScript interfejsi (modeli podataka)
+├── services/         # Servisi za pozive REST API-ju
+├── components/       # Angular komponente (UI)
+└── app.module.ts     # Glavni modul aplikacije
+```
+
+## CRUD operacije (korišćenje u aplikaciji)
+
+- Kreiranje: kliknite na dugme "+" u odgovarajućem delu
+- Čitanje: podaci se prikazuju u tabelama
+- Izmena: kliknite ikonu za uređivanje (✏️)
+- Brisanje: kliknite ikonu za brisanje (🗑️)
+
+## Stil i dizajn
+
+Aplikacija koristi jednostavan i moderan izgled sa:
+
+- Levom bočnom trakom za navigaciju
+- Bojama koje označavaju sekcije
+- Responsive tabelama i modalnim dijalozima

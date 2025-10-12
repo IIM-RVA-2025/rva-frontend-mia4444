@@ -1,0 +1,63 @@
+<form (ngSubmit)="onSubmit()" class="hotel-form">
+  <div class="form-group">
+    <label for="naziv">Naziv hotela:</label>
+    <input 
+      type="text" 
+      id="naziv" 
+      [(ngModel)]="formData.naziv" 
+      name="naziv"
+      required
+      class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="broj_zvezdica">Broj zvezdica:</label>
+    <select 
+      id="broj_zvezdica" 
+      [(ngModel)]="formData.broj_zvezdica" 
+      name="broj_zvezdica"
+      required
+      class="form-control">
+      <option value="1">1 zvezdica</option>
+      <option value="2">2 zvezdice</option>
+      <option value="3">3 zvezdice</option>
+      <option value="4">4 zvezdice</option>
+      <option value="5">5 zvezdica</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="opis">Opis:</label>
+    <textarea 
+      id="opis" 
+      [(ngModel)]="formData.opis" 
+      name="opis"
+      rows="3"
+      class="form-control">
+    </textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="destinacija">Destinacija:</label>
+    <select 
+      id="destinacija" 
+      [(ngModel)]="formData.destinacija!.id" 
+      name="destinacija"
+      required
+      class="form-control">
+      <option value="">Izaberite destinaciju</option>
+      <option *ngFor="let destinacija of destinacije" [value]="destinacija.id">
+        {{ destinacija.mesto }}, {{ destinacija.drzava }}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn btn-secondary" (click)="onCancel()">
+      Otkaži
+    </button>
+    <button type="submit" class="btn btn-primary" [disabled]="!isFormValid()">
+      {{ hotel ? 'Sačuvaj izmene' : 'Dodaj hotel' }}
+    </button>
+  </div>
+</form>

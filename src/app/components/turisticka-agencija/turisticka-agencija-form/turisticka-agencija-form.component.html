@@ -1,0 +1,44 @@
+<!-- Urađeno je...: Dodata kratka oznaka u fajl -->
+<form (ngSubmit)="onSubmit()" class="turisticka-agencija-form">
+  <div class="form-group">
+    <label for="naziv">Naziv agencije:</label>
+    <input 
+      type="text" 
+      id="naziv" 
+      [(ngModel)]="formData.naziv" 
+      name="naziv"
+      required
+      class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="adresa">Adresa:</label>
+    <input 
+      type="text" 
+      id="adresa" 
+      [(ngModel)]="formData.adresa" 
+      name="adresa"
+      required
+      class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="kontakt">Kontakt:</label>
+    <input 
+      type="text" 
+      id="kontakt" 
+      [(ngModel)]="formData.kontakt" 
+      name="kontakt"
+      required
+      class="form-control">
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn btn-secondary" (click)="onCancel()">
+      Otkaži
+    </button>
+    <button type="submit" class="btn btn-primary" [disabled]="!isFormValid()">
+      {{ agencija ? 'Sačuvaj izmene' : 'Dodaj agenciju' }}
+    </button>
+  </div>
+</form>

@@ -1,0 +1,62 @@
+<!-- Urađeno je...: Dodata kratka oznaka u fajl -->
+<div class="content-section">
+  <div class="section-header">
+    <h2>Hotel</h2>
+    <div class="actions">
+      <input 
+        type="text" 
+        placeholder="Pretraži..." 
+        class="search-input"
+        [(ngModel)]="searchTerm"
+        (input)="searchHotels()">
+      <button class="add-button" (click)="openAddModal()">+</button>
+    </div>
+  </div>
+  
+  <div class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Naziv</th>
+          <th>Broj zvezdica</th>
+          <th>Opis</th>
+          <th>Destinacija</th>
+          <th>Akcije</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hotel of hotels">
+          <td>{{ hotel.id }}</td>
+          <td>{{ hotel.naziv }}</td>
+          <td>{{ hotel.broj_zvezdica }}</td>
+          <td>{{ hotel.opis }}</td>
+          <td>{{ hotel.destinacija?.mesto }}</td>
+          <td class="actions">
+            <button class="edit-btn" (click)="openEditModal(hotel)">✏️</button>
+            <button class="delete-btn" (click)="deleteHotel(hotel.id)">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Hotel Modal -->
+<div *ngIf="showModal" class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>{{ editingHotel ? 'Izmeni Hotel' : 'Dodaj Hotel' }}</h3>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+    
+    <div class="modal-body">
+      <app-hotel-form 
+        [hotel]="editingHotel"
+        [destinacije]="destinacije"
+        (save)="saveHotel($event)"
+        (cancel)="closeModal()">
+      </app-hotel-form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<form (ngSubmit)="onSubmit()" class="aranzman-form">
+  <div class="form-group">
+    <label for="ukupnaCena">Ukupna cena:</label>
+    <input 
+      type="number" 
+      id="ukupnaCena" 
+      [(ngModel)]="formData.ukupnaCena" 
+      name="ukupnaCena"
+      step="0.01"
+      min="0"
+      required
+      class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="placeno">Plaćeno:</label>
+    <select 
+      id="placeno" 
+      [(ngModel)]="formData.placeno" 
+      name="placeno"
+      class="form-control">
+      <option [value]="false">Ne</option>
+      <option [value]="true">Da</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="datumRealizacije">Datum realizacije:</label>
+    <input 
+      type="date" 
+      id="datumRealizacije" 
+      [(ngModel)]="formData.datumRealizacije" 
+      name="datumRealizacije"
+      required
+      class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="hotel">Hotel:</label>
+    <select 
+      id="hotel" 
+      [(ngModel)]="formData.hotel.id" 
+      name="hotel"
+      required
+      class="form-control">
+      <option value="">Izaberite hotel</option>
+      <option *ngFor="let hotel of hoteli" [value]="hotel.id">
+        {{ hotel.naziv }} ({{ hotel.broj_zvezdica }} zvezdica)
+      </option>
+    </select>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="btn btn-secondary" (click)="onCancel()">
+      Otkaži
+    </button>
+    <button type="submit" class="btn btn-primary" [disabled]="!isFormValid()">
+      {{ aranzman ? 'Sačuvaj izmene' : 'Dodaj aranžman' }}
+    </button>
+  </div>
+</form>
