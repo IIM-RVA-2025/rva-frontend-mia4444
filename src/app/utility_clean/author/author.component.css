@@ -1,0 +1,5 @@
+.author-hero { background:#f7f9fa; padding:30px 20px; text-align:center; }
+.author-card { display:flex; gap:20px; padding:20px; align-items:center; justify-content:center; }
+.author-image img { width:200px; height:200px; object-fit:cover; border-radius:8px; }
+.author-description { max-width:600px; }
+.author-contact { margin-top:18px; text-align:center; }
